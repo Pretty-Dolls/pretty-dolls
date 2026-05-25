@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Pretty Dolls</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#ffe6f2;
+}
+
+header{
+  background:#ff69b4;
+  color:white;
+  text-align:center;
+  padding:20px;
+  font-size:30px;
+  font-weight:bold;
+}
+
+/* GRID */
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
+  padding:15px;
+}
+
+/* CARD */
+.card{
+  background:white;
+  border-radius:12px;
+  padding:8px;
+  text-align:center;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}
+
+.card img{
+  width:80%;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.price{
+  font-weight:bold;
+  margin:5px 0;
+}
+
+/* BOTONES */
+button{
+  background:#ff69b4;
+  color:white;
+  border:none;
+  padding:8px;
+  width:100%;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:5px;
+}
+
+button:hover{
+  background:#ff3d9a;
+}
+
+/* CARRITO */
+#cart{
+  position:fixed;
+  right:10px;
+  top:10px;
+  width:230px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.2);
+  font-size:13px;
+}
+
+.small{
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>Pretty Dolls</header>
+
+<div id="cart">
+<b>🛒 Tu pedido</b>
+<div id="items"></div>
+<button onclick="sendOrder()">Enviar pedido 💬</button>
+</div>
+
+<div class="container" id="productos"></div>
+
+<script>
+
+const URL = "https://opensheet.elk.sh/1lA5xF3f3DQwYEg9-cFPf6HvMfSBDgNJ5my8VTo7RKnI/Hoja1";
+
+let cart = [];
+
+async function cargar(){
+  let res = await fetch(URL);
+  let data = await res.json();
+
+  let cont = document.getElementById("productos");
+  cont.innerHTML = "";
+
+  data.forEach(p=>{
+    cont.innerHTML += `
+      <div class="card">
+        <img src="${p.imagen}">
+        <h4>${p.nombre}</h4>
+        <div class="price">$${p.precio}</div>
+
+        <button onclick="add('${p.nombre}', ${p.precio})">
+          Agregar 
+        </button>
+      </div>
+    `;
+  });
+}
+
+function add(name,price){
+  cart.push({name,price});
+  render();
+}
+
+function render(){
+  let box = document.getElementById("items");
+  box.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(p=>{
+    box.innerHTML += `<div class="small">• ${p.name} - $${p.price}</div>`;
+    total += p.price;
+  });
+
+  box.innerHTML += `<hr><b>Total: $${total}</b>`;
+}
+
+function sendOrder(){
+  let msg = "Hola! Quiero hacer este pedido:%0A";
+
+  let total = 0;
+
+  cart.forEach(p=>{
+    msg += `- ${p.name} ($${p.price})%0A`;
+    total += p.price;
+  });
+
+  msg += `%0ATotal: $${total}`;
+
+  let phone = "5491135975714";
+
+  window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+}
+
+cargar();
+
+</script>
+
+</body>
+</html>
