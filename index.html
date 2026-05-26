@@ -5,6 +5,17 @@
 <title>Pretty Dolls</title>
 
 <style>
+  @media (max-width:768px){
+
+.container{
+grid-template-columns:repeat(2,1fr);
+}
+
+.card img{
+height:120px;
+}
+
+}
 body{
   margin:0;
   font-family:Arial;
@@ -22,47 +33,53 @@ header{
 
 /* GRID */
 .container{
-  display:grid;
-  grid-template-columns:repeat(4, MINIMAX(0,1fr));
-  gap:6px;
-  padding:8px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+padding:15px;
 }
 
-/* CARD */
 .card{
-  background:white;
-  border-radius:6px;
-  padding:4px;
-  text-align:center;
-  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+background:white;
+border-radius:15px;
+padding:10px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+overflow:hidden;
+font-size:13px;
 }
 
 .card img{
-  width:100%;
-  height:70px;
-  object-fit:cover;
-  border-radius:6px;
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.card h3{
+font-size:15px;
+margin:8px 0;
 }
 
 .price{
-  font-weight:bold;
-  margin:5px 0;
+font-weight:bold;
+font-size:18px;
+margin:6px 0;
 }
 
-/* BOTONES */
 button{
-  background:#FF8EB9;
-  color:white;
-  border:none;
-  padding:8px;
-  width:100%;
-  border-radius:10px;
-  cursor:pointer;
-  margin-top:5px;
+background:#ff7fb2;
+color:white;
+border:none;
+padding:8px;
+width:80%;
+border-radius:20px;
+cursor:pointer;
+margin-top:8px;
 }
 
 button:hover{
-  background:#FFBCD6;
+background:#ff5f9d;
 }
 
 /* CARRITO */
