@@ -24,261 +24,6 @@ top:0;
 z-index:999;
 }
 
-.container{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:8px;
-padding:12px;
-margin-right:250px;
-}
-
-.card{
-background:white;
-border-radius:12px;
-padding:8px;
-text-align:center;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
-overflow:hidden;
-}
-
-.card img{
-width:100%;
-height:300px;
-object-fit:cover;
-border-radius:8px;
-}
-
-.card h4{
-font-size:12px;
-margin:6px 0;
-}
-
-.price{
-font-size:14px;
-font-weight:bold;
-margin-bottom:5px;
-}
-
-/* Botón principal */
-
-.buy-btn{
-background:#ff7fb2;
-color:white;
-border:none;
-padding:6px;
-width:100%;
-border-radius:15px;
-cursor:pointer;
-font-size:11px;
-}
-
-.buy-btn:hover{
-background:#ff5f9d;
-}
-
-/* contador */
-
-.qty{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:8px;
-margin:8px 0;
-}
-
-.qty-btn{
-width:28px;
-height:28px;
-border:none;
-border-radius:50%;
-background:#ffb8d2;
-cursor:pointer;
-}
-
-#cart{
-position:fixed;
-right:10px;
-top:10px;
-width:220px;
-background:white;
-padding:10px;
-border-radius:12px;
-box-shadow:0 3px 10px rgba(0,0,0,.2);
-font-size:12px;
-z-index:1000;
-}
-
-.small{
-font-size:11px;
-margin-bottom:6px;
-}
-
-.remove{
-border:none;
-background:none;
-cursor:pointer;
-}
-
-@media(max-width:768px){
-
-.container{
-grid-template-columns:repeat(2,1fr);
-margin-right:0;
-}
-
-#cart{
-position:relative;
-width:auto;
-margin:10px;
-}
-
-}
-
-</style>
-</head>
-
-<body>
-
-<header>
-𝑷𝒓𝒆𝒕𝒕𝒚 𝑫𝒐𝒍𝒍𝒔 
-</header>
-
-<div id="cart">
-
-<b>🛒 Tu pedido</b>
-
-<div id="items"></div>
-
-<button class="buy-btn" onclick="sendOrder()">
-Enviar pedido 💬
-</button>
-
-</div>
-
-<div class="container" id="productos"></div>
-
-<script>
-
-const URL="https://opensheet.elk.sh/1lA5xF3f3DQwYEg9-cFPf6HvMfSBDgNJ5my8VTo7RKnI/Hoja1";
-
-let cart=[];
-let cantidades={};
-
-async function cargar(){
-
-let res=await fetch(URL);
-let data=await res.json();
-
-let cont=document.getElementById("productos");
-
-cont.innerHTML="";
-
-data.forEach((p,i)=>{
-
-cantidades[i]=1;
-
-cont.innerHTML+=`
-
-<div class="card">
-
-<img src="${p.imagen}">
-
-<h4>${p.nombre}</h4>
-
-<div class="price">$${p.precio}</div>
-
-<div class="qty">
-
-<button class="qty-btn" onclick="menos(${i})">➖</button>
-
-<span id="cantidad${i}">1</span>
-
-<button class="qty-btn" onclick="mas(${i})">➕</button>
-
-</div>
-
-<button class="buy-btn"
-onclick="add('${p.nombre}',${p.precio},${i})">
-
-Agregar 🛒
-
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-function mas(i){
-
-cantidades[i]++;
-document.getElementById("cantidad"+i).innerText=cantidades[i];
-
-}
-
-function menos(i){
-
-if(cantidades[i]>1){
-
-cantidades[i]--;
-document.getElementById("cantidad"+i).innerText=cantidades[i];
-
-}
-
-}
-
-function add(name,price,i){
-
-cart.push({
-name:name,
-price:Number(price),
-cantidad:cantidades[i]
-});
-
-render();
-
-}
-
-function remove(index){
-
-cart.splice(index,1);
-render();
-
-}
-
-function render(){
-
-let box=document.ge<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Pretty Dolls</title>
-
-<style>
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#FFEDF4;
-}
-
-header{
-background:#FF8EB9;
-color:white;
-text-align:center;
-padding:18px;
-font-size:28px;
-font-weight:bold;
-position:sticky;
-top:0;
-z-index:999;
-}
-
-/* Categorías */
-
 .categorias{
 display:flex;
 justify-content:center;
@@ -445,7 +190,7 @@ Enviar pedido 💬
 const URL="https://opensheet.elk.sh/1lA5xF3f3DQwYEg9-cFPf6HvMfSBDgNJ5my8VTo7RKnI/Hoja1";
 
 let cart=[];
-let cantidades=[];
+let cantidades={};
 let productos=[];
 
 async function cargar(){
@@ -464,6 +209,10 @@ let cont=document.getElementById("productos");
 cont.innerHTML="";
 
 data.forEach((p,i)=>{
+
+if(!p.nombre || !p.precio || !p.imagen){
+return;
+}
 
 cantidades[i]=1;
 
@@ -509,9 +258,12 @@ mostrar(productos);
 return;
 }
 
-let filtrados=productos.filter(
-p=>p.categoria===categoria
-);
+let filtrados=productos.filter(p=>{
+
+return p.categoria &&
+p.categoria.trim().toLowerCase()===categoria.toLowerCase();
+
+});
 
 mostrar(filtrados);
 
@@ -520,10 +272,7 @@ mostrar(filtrados);
 function mas(i){
 
 cantidades[i]++;
-
-document.getElementById(
-"cantidad"+i
-).innerText=cantidades[i];
+document.getElementById("cantidad"+i).innerText=cantidades[i];
 
 }
 
@@ -532,10 +281,7 @@ function menos(i){
 if(cantidades[i]>1){
 
 cantidades[i]--;
-
-document.getElementById(
-"cantidad"+i
-).innerText=cantidades[i];
+document.getElementById("cantidad"+i).innerText=cantidades[i];
 
 }
 
@@ -544,11 +290,9 @@ document.getElementById(
 function add(name,price,i){
 
 cart.push({
-
 name:name,
 price:Number(price),
 cantidad:cantidades[i]
-
 });
 
 render();
@@ -580,7 +324,6 @@ box.innerHTML+=`
 <div class="small">
 
 ${p.cantidad}x ${p.name}
-
 - $${subtotal}
 
 <button class="remove"
