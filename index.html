@@ -23,6 +23,7 @@ position:sticky;
 top:0;
 z-index:999;
 }
+
 .instagram{
 text-align:center;
 margin:15px;
@@ -37,6 +38,34 @@ text-decoration:none;
 font-weight:bold;
 display:inline-block;
 }
+
+.banner{
+margin:15px;
+padding:25px;
+border-radius:20px;
+text-align:center;
+background:linear-gradient(45deg,#ff8eb9,#ffbfd8);
+color:white;
+}
+
+.banner h2{
+margin:0;
+}
+
+.search-box{
+text-align:center;
+margin:15px;
+}
+
+.search-box input{
+width:70%;
+padding:12px;
+border:none;
+border-radius:25px;
+font-size:15px;
+outline:none;
+}
+
 .categorias{
 display:flex;
 justify-content:center;
@@ -52,11 +81,6 @@ border:none;
 padding:8px 15px;
 border-radius:20px;
 cursor:pointer;
-font-size:13px;
-}
-
-.categorias button:hover{
-background:#ff5f9d;
 }
 
 .container{
@@ -83,11 +107,6 @@ object-fit:cover;
 border-radius:8px;
 }
 
-.card h4{
-font-size:12px;
-margin:6px 0;
-}
-
 .price{
 font-size:14px;
 font-weight:bold;
@@ -102,19 +121,13 @@ padding:6px;
 width:100%;
 border-radius:15px;
 cursor:pointer;
-font-size:11px;
-}
-
-.buy-btn:hover{
-background:#ff5f9d;
 }
 
 .qty{
 display:flex;
 justify-content:center;
-align-items:center;
 gap:8px;
-margin:8px 0;
+margin:8px;
 }
 
 .qty-btn{
@@ -135,13 +148,12 @@ background:white;
 padding:10px;
 border-radius:12px;
 box-shadow:0 3px 10px rgba(0,0,0,.2);
-font-size:12px;
-z-index:1000;
+z-index:999;
 }
 
 .small{
 font-size:11px;
-margin-bottom:6px;
+margin-bottom:5px;
 }
 
 .remove{
@@ -150,17 +162,39 @@ background:none;
 cursor:pointer;
 }
 
+#topBtn{
+display:none;
+position:fixed;
+bottom:20px;
+right:20px;
+border:none;
+border-radius:50%;
+width:50px;
+height:50px;
+background:#ff7fb2;
+color:white;
+font-size:20px;
+cursor:pointer;
+}
+
 @media(max-width:768px){
 
 .container{
 grid-template-columns:repeat(2,1fr);
 margin-right:0;
+padding:8px;
+gap:12px;
+}
+
+.card img{
+height:180px;
 }
 
 #cart{
 position:relative;
 width:auto;
 margin:10px;
+border-radius:15px;
 }
 
 }
@@ -173,15 +207,26 @@ margin:10px;
 <header>
 𝑷𝒓𝒆𝒕𝒕𝒚 𝑫𝒐𝒍𝒍𝒔
 </header>
+
 <div class="instagram">
-
 <a href="https://instagram.com/prettydolls.ok" target="_blank">
-
-Seguinos en Instagram!
-
+📷 Seguinos en Instagram
 </a>
-
 </div>
+
+<div class="banner">
+<h2>💖 Pretty Dolls 💖</h2>
+<p>Maquillaje y accesorios para resaltar tu estilo</p>
+</div>
+
+<div class="search-box">
+<input
+type="text"
+id="busqueda"
+placeholder="🔍 Buscar productos..."
+onkeyup="buscar()">
+</div>
+
 <div class="categorias">
 
 <button onclick="filtrar('Todos')">Todos</button>
@@ -193,17 +238,32 @@ Seguinos en Instagram!
 
 <div id="cart">
 
-<b>🛒 Tu pedido</b>
+<b id="cart-title">
+🛒 Tu pedido (0)
+</b>
 
 <div id="items"></div>
 
-<button class="buy-btn" onclick="sendOrder()">
+<button class="buy-btn"
+onclick="sendOrder()">
+
 Enviar pedido 💬
+
 </button>
 
 </div>
 
-<div class="container" id="productos"></div>
+<div class="container"
+id="productos">
+
+</div>
+
+<button id="topBtn"
+onclick="subir()">
+
+⬆
+
+</button>
 
 <script>
 
@@ -216,6 +276,7 @@ let productos=[];
 async function cargar(){
 
 let res=await fetch(URL);
+
 productos=await res.json();
 
 mostrar(productos);
@@ -224,15 +285,16 @@ mostrar(productos);
 
 function mostrar(data){
 
-let cont=document.getElementById("productos");
+let cont=
+document.getElementById(
+"productos"
+);
 
 cont.innerHTML="";
 
 data.forEach((p,i)=>{
 
-if(!p.nombre || !p.precio || !p.imagen){
-return;
-}
+if(!p.nombre)return;
 
 cantidades[i]=1;
 
@@ -244,20 +306,39 @@ cont.innerHTML+=`
 
 <h4>${p.nombre}</h4>
 
-<div class="price">$${p.precio}</div>
+<div class="price">
+$${p.precio}
+</div>
 
 <div class="qty">
 
-<button class="qty-btn" onclick="menos(${i})">➖</button>
+<button class="qty-btn"
+onclick="menos(${i})">
 
-<span id="cantidad${i}">1</span>
+➖
 
-<button class="qty-btn" onclick="mas(${i})">➕</button>
+</button>
+
+<span id="cantidad${i}">
+1
+</span>
+
+<button class="qty-btn"
+onclick="mas(${i})">
+
+➕
+
+</button>
 
 </div>
 
 <button class="buy-btn"
-onclick="add('${p.nombre}',${p.precio},${i})">
+
+onclick="add(
+'${p.nombre}',
+${p.precio},
+${i}
+)">
 
 Agregar 🛒
 
@@ -271,19 +352,46 @@ Agregar 🛒
 
 }
 
-function filtrar(categoria){
+function buscar(){
 
-if(categoria==="Todos"){
-mostrar(productos);
-return;
+let texto=
+document.getElementById(
+"busqueda"
+).value.toLowerCase();
+
+let filtrados=
+productos.filter(p=>
+
+p.nombre
+.toLowerCase()
+.includes(texto)
+
+);
+
+mostrar(filtrados);
+
 }
 
-let filtrados=productos.filter(p=>{
+function filtrar(categoria){
 
-return p.categoria &&
-p.categoria.trim().toLowerCase()===categoria.toLowerCase();
+if(categoria=="Todos"){
 
-});
+mostrar(productos);
+
+return;
+
+}
+
+let filtrados=
+productos.filter(p=>
+
+p.categoria &&
+p.categoria
+.toLowerCase()
+===categoria
+.toLowerCase()
+
+);
 
 mostrar(filtrados);
 
@@ -292,7 +400,11 @@ mostrar(filtrados);
 function mas(i){
 
 cantidades[i]++;
-document.getElementById("cantidad"+i).innerText=cantidades[i];
+
+document.getElementById(
+"cantidad"+i
+).innerText=
+cantidades[i];
 
 }
 
@@ -301,7 +413,11 @@ function menos(i){
 if(cantidades[i]>1){
 
 cantidades[i]--;
-document.getElementById("cantidad"+i).innerText=cantidades[i];
+
+document.getElementById(
+"cantidad"+i
+).innerText=
+cantidades[i];
 
 }
 
@@ -310,18 +426,20 @@ document.getElementById("cantidad"+i).innerText=cantidades[i];
 function add(name,price,i){
 
 cart.push({
+
 name:name,
 price:Number(price),
 cantidad:cantidades[i]
+
 });
 
 render();
 
 }
 
-function remove(index){
+function remove(i){
 
-cart.splice(index,1);
+cart.splice(i,1);
 
 render();
 
@@ -329,25 +447,32 @@ render();
 
 function render(){
 
-let box=document.getElementById("items");
+let box=
+document.getElementById(
+"items"
+);
 
 box.innerHTML="";
 
 let total=0;
 
-cart.forEach((p,index)=>{
+cart.forEach((p,i)=>{
 
-let subtotal=p.price*p.cantidad;
+let subtotal=
+p.price*p.cantidad;
 
 box.innerHTML+=`
 
 <div class="small">
 
-${p.cantidad}x ${p.name}
-- $${subtotal}
+${p.cantidad}x
+${p.name}
 
-<button class="remove"
-onclick="remove(${index})">
+$${subtotal}
+
+<button
+class="remove"
+onclick="remove(${i})">
 
 ❌
 
@@ -361,32 +486,86 @@ total+=subtotal;
 
 });
 
-box.innerHTML+=`<hr><b>Total: $${total}</b>`;
+box.innerHTML+=
+`<hr><b>
+Total: $${total}
+</b>`;
+
+document
+.getElementById(
+"cart-title"
+)
+.innerText=
+
+`🛒 Tu pedido (${cart.length})`;
 
 }
 
 function sendOrder(){
 
-let msg="💖 Hola! Quiero hacer este pedido:%0A%0A";
+let msg=
+"💖 Hola! Quiero hacer este pedido:%0A%0A";
 
 let total=0;
 
 cart.forEach(p=>{
 
-let subtotal=p.price*p.cantidad;
+let subtotal=
+p.price*p.cantidad;
 
-msg+=`${p.cantidad}x ${p.name} - $${subtotal}%0A`;
+msg+=
+`${p.cantidad}x ${p.name}
+- $${subtotal}%0A`;
 
 total+=subtotal;
 
 });
 
-msg+=`%0A💰 Total: $${total}`;
+msg+=
+`%0A💰 Total:
+$${total}`;
 
 window.open(
-`https://wa.me/5491135975714?text=${msg}`,
-"_blank"
+
+`https://wa.me/5491135975714?text=${msg}`
+
 );
+
+}
+
+function subir(){
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
+
+});
+
+}
+
+window.onscroll=
+function(){
+
+let btn=
+document.getElementById(
+"topBtn"
+);
+
+if(
+document.documentElement
+.scrollTop>200
+){
+
+btn.style.display=
+"block";
+
+}else{
+
+btn.style.display=
+"none";
+
+}
 
 }
 
