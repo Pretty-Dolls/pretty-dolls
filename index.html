@@ -24,8 +24,6 @@ top:0;
 z-index:999;
 }
 
-/* PRODUCTOS */
-
 .container{
 display:grid;
 grid-template-columns:repeat(4,1fr);
@@ -77,13 +75,24 @@ button:hover{
 background:#ff5f9d;
 }
 
-/* CARRITO */
+.qty{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:8px;
+margin:8px 0;
+}
+
+.qty button{
+width:30px;
+padding:4px;
+}
 
 #cart{
 position:fixed;
 right:10px;
 top:10px;
-width:210px;
+width:220px;
 background:white;
 padding:10px;
 border-radius:12px;
@@ -94,10 +103,14 @@ z-index:1000;
 
 .small{
 font-size:11px;
-margin-bottom:4px;
+margin-bottom:5px;
 }
 
-/* CELULAR */
+.remove{
+width:25px !important;
+padding:2px !important;
+margin-left:5px;
+}
 
 @media(max-width:768px){
 
@@ -121,7 +134,7 @@ margin:10px;
 <body>
 
 <header>
-𝑷𝒓𝒆𝒕𝒕𝒚 𝑫𝒐𝒍𝒍𝒔 
+𝑷𝒓𝒆𝒕𝒕𝒚 𝑫𝒐𝒍𝒍𝒔 💖
 </header>
 
 <div id="cart">
@@ -143,18 +156,20 @@ Enviar pedido 💬
 const URL="https://opensheet.elk.sh/1lA5xF3f3DQwYEg9-cFPf6HvMfSBDgNJ5my8VTo7RKnI/Hoja1";
 
 let cart=[];
+let cantidades={};
 
 async function cargar(){
 
 let res=await fetch(URL);
-
 let data=await res.json();
 
 let cont=document.getElementById("productos");
 
 cont.innerHTML="";
 
-data.forEach(p=>{
+data.forEach((p,i)=>{
+
+cantidades[i]=1;
 
 cont.innerHTML+=`
 
@@ -170,7 +185,23 @@ $${p.precio}
 
 </div>
 
-<button onclick="add('${p.nombre}',${p.precio})">
+<div class="qty">
+
+<button onclick="menos(${i})">
+➖
+</button>
+
+<span id="cantidad${i}">
+1
+</span>
+
+<button onclick="mas(${i})">
+➕
+</button>
+
+</div>
+
+<button onclick="add('${p.nombre}',${p.precio},${i})">
 
 Agregar 🛒
 
@@ -184,12 +215,47 @@ Agregar 🛒
 
 }
 
-function add(name,price){
+function mas(i){
+
+cantidades[i]++;
+
+document.getElementById(
+"cantidad"+i
+).innerText=cantidades[i];
+
+}
+
+function menos(i){
+
+if(cantidades[i]>1){
+
+cantidades[i]--;
+
+document.getElementById(
+"cantidad"+i
+).innerText=cantidades[i];
+
+}
+
+}
+
+function add(name,price,i){
 
 cart.push({
-name,
-price
+
+name:name,
+price:Number(price),
+cantidad:cantidades[i]
+
 });
+
+render();
+
+}
+
+function remove(index){
+
+cart.splice(index,1);
 
 render();
 
@@ -203,17 +269,32 @@ box.innerHTML="";
 
 let total=0;
 
-cart.forEach(p=>{
+cart.forEach((p,index)=>{
+
+let subtotal=
+p.price*p.cantidad;
 
 box.innerHTML+=`
+
 <div class="small">
 
-• ${p.name} - $${p.price}
+${p.cantidad}x ${p.name}
+
+- $${subtotal}
+
+<button
+class="remove"
+onclick="remove(${index})">
+
+❌
+
+</button>
 
 </div>
+
 `;
 
-total+=Number(p.price);
+total+=subtotal;
 
 });
 
@@ -235,9 +316,12 @@ let total=0;
 
 cart.forEach(p=>{
 
-msg+=`• ${p.name} - $${p.price}%0A`;
+let subtotal=
+p.price*p.cantidad;
 
-total+=Number(p.price);
+msg+=`${p.cantidad}x ${p.name} - $${subtotal}%0A`;
+
+total+=subtotal;
 
 });
 
