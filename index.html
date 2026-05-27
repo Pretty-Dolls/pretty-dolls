@@ -35,7 +35,7 @@ margin-right:250px;
 .card{
 background:white;
 border-radius:12px;
-padding:6px;
+padding:8px;
 text-align:center;
 box-shadow:0 2px 8px rgba(0,0,0,.08);
 overflow:hidden;
@@ -43,7 +43,7 @@ overflow:hidden;
 
 .card img{
 width:100%;
-aspect-ratio:4/5;
+height:120px;
 object-fit:cover;
 border-radius:8px;
 }
@@ -59,7 +59,9 @@ font-weight:bold;
 margin-bottom:5px;
 }
 
-button{
+/* Botón principal */
+
+.buy-btn{
 background:#ff7fb2;
 color:white;
 border:none;
@@ -68,12 +70,13 @@ width:100%;
 border-radius:15px;
 cursor:pointer;
 font-size:11px;
-transition:.3s;
 }
 
-button:hover{
+.buy-btn:hover{
 background:#ff5f9d;
 }
+
+/* contador */
 
 .qty{
 display:flex;
@@ -83,9 +86,13 @@ gap:8px;
 margin:8px 0;
 }
 
-.qty button{
-width:30px;
-padding:4px;
+.qty-btn{
+width:28px;
+height:28px;
+border:none;
+border-radius:50%;
+background:#ffb8d2;
+cursor:pointer;
 }
 
 #cart{
@@ -103,13 +110,13 @@ z-index:1000;
 
 .small{
 font-size:11px;
-margin-bottom:5px;
+margin-bottom:6px;
 }
 
 .remove{
-width:25px !important;
-padding:2px !important;
-margin-left:5px;
+border:none;
+background:none;
+cursor:pointer;
 }
 
 @media(max-width:768px){
@@ -128,7 +135,6 @@ margin:10px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -143,7 +149,7 @@ margin:10px;
 
 <div id="items"></div>
 
-<button onclick="sendOrder()">
+<button class="buy-btn" onclick="sendOrder()">
 Enviar pedido 💬
 </button>
 
@@ -179,29 +185,20 @@ cont.innerHTML+=`
 
 <h4>${p.nombre}</h4>
 
-<div class="price">
-
-$${p.precio}
-
-</div>
+<div class="price">$${p.precio}</div>
 
 <div class="qty">
 
-<button onclick="menos(${i})">
-➖
-</button>
+<button class="qty-btn" onclick="menos(${i})">➖</button>
 
-<span id="cantidad${i}">
-1
-</span>
+<span id="cantidad${i}">1</span>
 
-<button onclick="mas(${i})">
-➕
-</button>
+<button class="qty-btn" onclick="mas(${i})">➕</button>
 
 </div>
 
-<button onclick="add('${p.nombre}',${p.precio},${i})">
+<button class="buy-btn"
+onclick="add('${p.nombre}',${p.precio},${i})">
 
 Agregar 🛒
 
@@ -218,10 +215,7 @@ Agregar 🛒
 function mas(i){
 
 cantidades[i]++;
-
-document.getElementById(
-"cantidad"+i
-).innerText=cantidades[i];
+document.getElementById("cantidad"+i).innerText=cantidades[i];
 
 }
 
@@ -230,10 +224,7 @@ function menos(i){
 if(cantidades[i]>1){
 
 cantidades[i]--;
-
-document.getElementById(
-"cantidad"+i
-).innerText=cantidades[i];
+document.getElementById("cantidad"+i).innerText=cantidades[i];
 
 }
 
@@ -242,11 +233,9 @@ document.getElementById(
 function add(name,price,i){
 
 cart.push({
-
 name:name,
 price:Number(price),
 cantidad:cantidades[i]
-
 });
 
 render();
@@ -256,7 +245,6 @@ render();
 function remove(index){
 
 cart.splice(index,1);
-
 render();
 
 }
@@ -271,8 +259,7 @@ let total=0;
 
 cart.forEach((p,index)=>{
 
-let subtotal=
-p.price*p.cantidad;
+let subtotal=p.price*p.cantidad;
 
 box.innerHTML+=`
 
@@ -282,8 +269,7 @@ ${p.cantidad}x ${p.name}
 
 - $${subtotal}
 
-<button
-class="remove"
+<button class="remove"
 onclick="remove(${index})">
 
 ❌
@@ -298,13 +284,7 @@ total+=subtotal;
 
 });
 
-box.innerHTML+=`
-
-<hr>
-
-<b>Total: $${total}</b>
-
-`;
+box.innerHTML+=`<hr><b>Total: $${total}</b>`;
 
 }
 
@@ -316,8 +296,7 @@ let total=0;
 
 cart.forEach(p=>{
 
-let subtotal=
-p.price*p.cantidad;
+let subtotal=p.price*p.cantidad;
 
 msg+=`${p.cantidad}x ${p.name} - $${subtotal}%0A`;
 
@@ -327,10 +306,8 @@ total+=subtotal;
 
 msg+=`%0A💰 Total: $${total}`;
 
-let phone="5491135975714";
-
 window.open(
-`https://wa.me/${phone}?text=${msg}`,
+`https://wa.me/5491135975714?text=${msg}`,
 "_blank"
 );
 
