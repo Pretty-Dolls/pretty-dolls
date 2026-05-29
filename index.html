@@ -2,9 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pretty Dolls</title>
 
 <style>
+
+*{
+box-sizing:border-box;
+}
 
 body{
 margin:0;
@@ -12,17 +17,22 @@ font-family:Arial,sans-serif;
 background:#FFEDF4;
 }
 
+/* HEADER */
+
 header{
 background:#FF8EB9;
 color:white;
 text-align:center;
 padding:18px;
-font-size:28px;
+font-size:30px;
 font-weight:bold;
 position:sticky;
 top:0;
 z-index:999;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
+
+/* INSTAGRAM */
 
 .instagram{
 text-align:center;
@@ -39,6 +49,8 @@ font-weight:bold;
 display:inline-block;
 }
 
+/* BANNER */
+
 .banner{
 margin:15px;
 padding:25px;
@@ -50,7 +62,10 @@ color:white;
 
 .banner h2{
 margin:0;
+font-size:28px;
 }
+
+/* BUSCADOR */
 
 .search-box{
 text-align:center;
@@ -58,7 +73,8 @@ margin:15px;
 }
 
 .search-box input{
-width:70%;
+width:80%;
+max-width:500px;
 padding:12px;
 border:none;
 border-radius:25px;
@@ -66,11 +82,13 @@ font-size:15px;
 outline:none;
 }
 
+/* CATEGORIAS */
+
 .categorias{
 display:flex;
 justify-content:center;
 gap:10px;
-padding:15px;
+padding:10px;
 flex-wrap:wrap;
 }
 
@@ -81,63 +99,92 @@ border:none;
 padding:8px 15px;
 border-radius:20px;
 cursor:pointer;
+font-weight:bold;
 }
+
+/* PRODUCTOS */
 
 .container{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:8px;
+gap:12px;
 padding:12px;
 margin-right:250px;
 }
 
 .card{
 background:white;
-border-radius:12px;
+border-radius:15px;
 padding:8px;
 text-align:center;
 box-shadow:0 2px 8px rgba(0,0,0,.08);
 overflow:hidden;
+transition:.2s;
+}
+
+.card:hover{
+transform:scale(1.02);
 }
 
 .card img{
 width:100%;
-height:300px;
+height:220px;
 object-fit:cover;
-border-radius:8px;
+border-radius:10px;
+}
+
+.card h4{
+font-size:14px;
+margin:8px 0 5px;
+min-height:35px;
 }
 
 .price{
-font-size:14px;
+font-size:16px;
 font-weight:bold;
-margin-bottom:5px;
+margin-bottom:8px;
 }
+
+/* CANTIDAD */
+
+.qty{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin:10px 0;
+}
+
+.qty-btn{
+width:30px;
+height:30px;
+border:none;
+border-radius:50%;
+background:#ffb8d2;
+font-size:16px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* BOTON */
 
 .buy-btn{
 background:#ff7fb2;
 color:white;
 border:none;
-padding:6px;
+padding:8px;
 width:100%;
-border-radius:15px;
+border-radius:18px;
 cursor:pointer;
+font-weight:bold;
+font-size:12px;
 }
 
-.qty{
-display:flex;
-justify-content:center;
-gap:8px;
-margin:8px;
+.buy-btn:hover{
+background:#ff5f9d;
 }
 
-.qty-btn{
-width:28px;
-height:28px;
-border:none;
-border-radius:50%;
-background:#ffb8d2;
-cursor:pointer;
-}
+/* CARRITO */
 
 #cart{
 position:fixed;
@@ -145,22 +192,27 @@ right:10px;
 top:10px;
 width:220px;
 background:white;
-padding:10px;
-border-radius:12px;
+padding:12px;
+border-radius:15px;
 box-shadow:0 3px 10px rgba(0,0,0,.2);
 z-index:999;
+max-height:90vh;
+overflow:auto;
 }
 
 .small{
-font-size:11px;
-margin-bottom:5px;
+font-size:12px;
+margin-bottom:8px;
 }
 
 .remove{
 border:none;
 background:none;
 cursor:pointer;
+font-size:14px;
 }
+
+/* BOTON SUBIR */
 
 #topBtn{
 display:none;
@@ -175,26 +227,74 @@ background:#ff7fb2;
 color:white;
 font-size:20px;
 cursor:pointer;
+box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
+
+/* CELULAR */
 
 @media(max-width:768px){
 
+header{
+font-size:24px;
+padding:15px;
+}
+
+.banner h2{
+font-size:22px;
+}
+
 .container{
 grid-template-columns:repeat(2,1fr);
-margin-right:0;
+gap:8px;
 padding:8px;
-gap:12px;
+margin-right:0;
+margin-bottom:180px;
+}
+
+.card{
+padding:6px;
+border-radius:12px;
 }
 
 .card img{
 height:180px;
 }
 
+.card h4{
+font-size:12px;
+min-height:30px;
+}
+
+.price{
+font-size:14px;
+}
+
+.buy-btn{
+font-size:11px;
+padding:7px;
+}
+
+.qty-btn{
+width:26px;
+height:26px;
+font-size:14px;
+}
+
 #cart{
-position:relative;
-width:auto;
-margin:10px;
-border-radius:15px;
+position:fixed;
+bottom:0;
+top:auto;
+left:0;
+right:0;
+width:100%;
+border-radius:18px 18px 0 0;
+padding:12px;
+max-height:170px;
+overflow:auto;
+}
+
+.search-box input{
+width:90%;
 }
 
 }
@@ -220,11 +320,13 @@ border-radius:15px;
 </div>
 
 <div class="search-box">
+
 <input
 type="text"
 id="busqueda"
 placeholder="🔍 Buscar productos..."
 onkeyup="buscar()">
+
 </div>
 
 <div class="categorias">
@@ -285,10 +387,7 @@ mostrar(productos);
 
 function mostrar(data){
 
-let cont=
-document.getElementById(
-"productos"
-);
+let cont=document.getElementById("productos");
 
 cont.innerHTML="";
 
@@ -333,12 +432,7 @@ onclick="mas(${i})">
 </div>
 
 <button class="buy-btn"
-
-onclick="add(
-'${p.nombre}',
-${p.precio},
-${i}
-)">
+onclick="add('${p.nombre}',${p.precio},${i})">
 
 Agregar 🛒
 
@@ -354,17 +448,12 @@ Agregar 🛒
 
 function buscar(){
 
-let texto=
-document.getElementById(
-"busqueda"
-).value.toLowerCase();
+let texto=document.getElementById("busqueda").value.toLowerCase();
 
-let filtrados=
-productos.filter(p=>
+let filtrados=productos.filter(p=>
 
-p.nombre
-.toLowerCase()
-.includes(texto)
+p.nombre &&
+p.nombre.toLowerCase().includes(texto)
 
 );
 
@@ -382,14 +471,10 @@ return;
 
 }
 
-let filtrados=
-productos.filter(p=>
+let filtrados=productos.filter(p=>
 
 p.categoria &&
-p.categoria
-.toLowerCase()
-===categoria
-.toLowerCase()
+p.categoria.toLowerCase()===categoria.toLowerCase()
 
 );
 
@@ -401,10 +486,7 @@ function mas(i){
 
 cantidades[i]++;
 
-document.getElementById(
-"cantidad"+i
-).innerText=
-cantidades[i];
+document.getElementById("cantidad"+i).innerText=cantidades[i];
 
 }
 
@@ -414,10 +496,7 @@ if(cantidades[i]>1){
 
 cantidades[i]--;
 
-document.getElementById(
-"cantidad"+i
-).innerText=
-cantidades[i];
+document.getElementById("cantidad"+i).innerText=cantidades[i];
 
 }
 
@@ -447,10 +526,7 @@ render();
 
 function render(){
 
-let box=
-document.getElementById(
-"items"
-);
+let box=document.getElementById("items");
 
 box.innerHTML="";
 
@@ -458,17 +534,14 @@ let total=0;
 
 cart.forEach((p,i)=>{
 
-let subtotal=
-p.price*p.cantidad;
+let subtotal=p.price*p.cantidad;
 
 box.innerHTML+=`
 
 <div class="small">
 
-${p.cantidad}x
-${p.name}
-
-$${subtotal}
+${p.cantidad}x ${p.name}
+- $${subtotal}
 
 <button
 class="remove"
@@ -486,49 +559,33 @@ total+=subtotal;
 
 });
 
-box.innerHTML+=
-`<hr><b>
-Total: $${total}
-</b>`;
+box.innerHTML+=`<hr><b>Total: $${total}</b>`;
 
-document
-.getElementById(
-"cart-title"
-)
-.innerText=
-
+document.getElementById("cart-title").innerText=
 `🛒 Tu pedido (${cart.length})`;
 
 }
 
 function sendOrder(){
 
-let msg=
-"💖 Hola! Quiero hacer este pedido:%0A%0A";
+let msg="💖 Hola! Quiero hacer este pedido:%0A%0A";
 
 let total=0;
 
 cart.forEach(p=>{
 
-let subtotal=
-p.price*p.cantidad;
+let subtotal=p.price*p.cantidad;
 
-msg+=
-`${p.cantidad}x ${p.name}
-- $${subtotal}%0A`;
+msg+=`${p.cantidad}x ${p.name} - $${subtotal}%0A`;
 
 total+=subtotal;
 
 });
 
-msg+=
-`%0A💰 Total:
-$${total}`;
+msg+=`%0A💰 Total: $${total}`;
 
 window.open(
-
 `https://wa.me/5491135975714?text=${msg}`
-
 );
 
 }
@@ -536,34 +593,23 @@ window.open(
 function subir(){
 
 window.scrollTo({
-
 top:0,
 behavior:"smooth"
-
 });
 
 }
 
-window.onscroll=
-function(){
+window.onscroll=function(){
 
-let btn=
-document.getElementById(
-"topBtn"
-);
+let btn=document.getElementById("topBtn");
 
-if(
-document.documentElement
-.scrollTop>200
-){
+if(document.documentElement.scrollTop>200){
 
-btn.style.display=
-"block";
+btn.style.display="block";
 
 }else{
 
-btn.style.display=
-"none";
+btn.style.display="none";
 
 }
 
