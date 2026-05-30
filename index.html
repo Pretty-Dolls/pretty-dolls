@@ -4,23 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pretty Dolls</title>
-
 <style>
-
 *{
 box-sizing:border-box;
 }
-
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#FFEDF4;
 }
-
 /* HEADER */
-<button id="menuBtn" onclick="toggleMenu()">
-☰ Categorías
-</button>
 header{
 background:#FF8EB9;
 color:white;
@@ -33,14 +26,11 @@ top:0;
 z-index:999;
 box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
-
 /* INSTAGRAM */
-
 .instagram{
 text-align:center;
 margin:15px;
 }
-
 .instagram a{
 background:#E1306C;
 color:white;
@@ -50,65 +40,24 @@ text-decoration:none;
 font-weight:bold;
 display:inline-block;
 }
-
 /* BANNER */
-
-<div class="banner">
-
-<img src="https://i.imgur.com/TUIMAGEN.jpg">
-
-<div class="banner-text">
-<h2> Pretty Dolls </h2>
-<p>Maquillaje y accesorios para resaltar tu estilo</p>
-</div>
-
-</div>
 .banner{
-position:relative;
-padding:0;
-overflow:hidden;
-border-radius:20px;
 margin:15px;
-}
-
-.banner img{
-width:100%;
-height:350px;
-object-fit:cover;
-display:block;
-}
-
-.banner-text{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-color:white;
-text-align:center;
-text-shadow:0 2px 10px rgba(0,0,0,.6);
-width:90%;
-}
-
-#menuBtn{
-position:fixed;
-left:15px;
-top:80px;
-z-index:1000;
-background:#ff7fb2;
-color:white;
-border:none;
-padding:10px 15px;
+padding:25px;
 border-radius:20px;
-cursor:pointer;
-font-weight:bold;
+text-align:center;
+background:linear-gradient(45deg,#ff8eb9,#ffbfd8);
+color:white;
+}
+.banner h2{
+margin:0;
+font-size:28px;
 }
 /* BUSCADOR */
-
 .search-box{
 text-align:center;
 margin:15px;
 }
-
 .search-box input{
 width:80%;
 max-width:500px;
@@ -118,9 +67,7 @@ border-radius:25px;
 font-size:15px;
 outline:none;
 }
-
 /* CATEGORIAS */
-
 .categorias{
 display:flex;
 justify-content:center;
@@ -128,7 +75,6 @@ gap:10px;
 padding:10px;
 flex-wrap:wrap;
 }
-
 .categorias button{
 background:#ff7fb2;
 color:white;
@@ -138,52 +84,43 @@ border-radius:20px;
 cursor:pointer;
 font-weight:bold;
 }
-
 /* PRODUCTOS */
-
 .container{
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:15px;
-padding:15px;
-margin-right:230px;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
+padding:12px;
+margin-right:250px;
 }
-
 .card{
 background:white;
 border-radius:15px;
-padding:12px;
+padding:8px;
 text-align:center;
 box-shadow:0 2px 8px rgba(0,0,0,.08);
 overflow:hidden;
 transition:.2s;
 }
-
 .card:hover{
 transform:scale(1.02);
 }
-
 .card img{
 width:100%;
-height:300px;
+height:220px;
 object-fit:cover;
 border-radius:10px;
 }
-
 .card h4{
 font-size:14px;
 margin:8px 0 5px;
 min-height:35px;
 }
-
 .price{
 font-size:16px;
 font-weight:bold;
 margin-bottom:8px;
 }
-
 /* CANTIDAD */
-
 .qty{
 display:flex;
 justify-content:center;
@@ -191,7 +128,6 @@ align-items:center;
 gap:10px;
 margin:10px 0;
 }
-
 .qty-btn{
 width:30px;
 height:30px;
@@ -202,9 +138,7 @@ font-size:16px;
 cursor:pointer;
 font-weight:bold;
 }
-
 /* BOTON */
-
 .buy-btn{
 background:#ff7fb2;
 color:white;
@@ -216,13 +150,10 @@ cursor:pointer;
 font-weight:bold;
 font-size:12px;
 }
-
 .buy-btn:hover{
 background:#ff5f9d;
 }
-
 /* CARRITO */
-
 #cart{
 position:fixed;
 right:10px;
@@ -236,21 +167,17 @@ z-index:999;
 max-height:90vh;
 overflow:auto;
 }
-
 .small{
 font-size:12px;
 margin-bottom:8px;
 }
-
 .remove{
 border:none;
 background:none;
 cursor:pointer;
 font-size:14px;
 }
-
 /* BOTON SUBIR */
-
 #topBtn{
 display:none;
 position:fixed;
@@ -266,91 +193,15 @@ font-size:20px;
 cursor:pointer;
 box-shadow:0 2px 10px rgba(0,0,0,.2);
 }
-
 /* CELULAR */
-
 @media(max-width:768px){
-
 header{
 font-size:24px;
 padding:15px;
 }
-
 .banner h2{
 font-size:22px;
 }
-  
-#menuBtn{
-position:fixed;
-left:15px;
-top:80px;
-z-index:1000;
-background:#ff7fb2;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:20px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.sidebar{
-position:fixed;
-left:-250px;
-top:130px;
-width:220px;
-background:white;
-padding:15px;
-border-radius:15px;
-box-shadow:0 3px 10px rgba(0,0,0,.2);
-transition:.3s;
-z-index:1000;
-}
-
-.sidebar.active{
-left:15px;
-}
-
-.sidebar h3{
-margin-top:0;
-text-align:center;
-}
-
-.sidebar button{
-width:100%;
-margin-bottom:8px;
-background:#ff7fb2;
-color:white;
-border:none;
-padding:10px;
-border-radius:15px;
-cursor:pointer;
-}
-
-.banner{
-position:relative;
-padding:0;
-overflow:hidden;
-}
-
-.banner img{
-width:100%;
-height:350px;
-object-fit:cover;
-display:block;
-}
-
-.banner-text{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-color:white;
-text-align:center;
-text-shadow:0 2px 10px rgba(0,0,0,.6);
-width:90%;
-}
-  
 .container{
 grid-template-columns:repeat(2,1fr);
 gap:8px;
@@ -358,36 +209,29 @@ padding:8px;
 margin-right:0;
 margin-bottom:180px;
 }
-
 .card{
 padding:6px;
 border-radius:12px;
 }
-
 .card img{
 height:180px;
 }
-
 .card h4{
 font-size:12px;
 min-height:30px;
 }
-
 .price{
 font-size:14px;
 }
-
 .buy-btn{
 font-size:11px;
 padding:7px;
 }
-
 .qty-btn{
 width:26px;
 height:26px;
 font-size:14px;
 }
-
 #cart{
 position:fixed;
 bottom:0;
@@ -400,342 +244,191 @@ padding:12px;
 max-height:170px;
 overflow:auto;
 }
-
 .search-box input{
 width:90%;
 }
-
 }
-
 </style>
 </head>
-
 <body>
-
 <header>
 𝑷𝒓𝒆𝒕𝒕𝒚 𝑫𝒐𝒍𝒍𝒔
 </header>
-
 <div class="instagram">
 <a href="https://instagram.com/prettydolls.ok" target="_blank">
 📷 Seguinos en Instagram
 </a>
 </div>
-
 <div class="banner">
 <h2> Pretty Dolls </h2>
 <p>Maquillaje y accesorios para resaltar tu estilo</p>
 </div>
-
 <div class="search-box">
-
 <input
 type="text"
 id="busqueda"
 placeholder="🔍 Buscar productos..."
 onkeyup="buscar()">
-
 </div>
-
-<div class="sidebar" id="sidebar">
-
-<h3> Categorías</h3>
-
+<div class="categorias">
 <button onclick="filtrar('Todos')">Todos</button>
 <button onclick="filtrar('Maquillaje')">Maquillaje</button>
 <button onclick="filtrar('Brochas y Aplicadores')">Brochas</button>
 <button onclick="filtrar('Accesorios')">Accesorios</button>
-
 </div>
-
 <div id="cart">
-
 <b id="cart-title">
 🛒 Tu pedido (0)
 </b>
-
 <div id="items"></div>
-
 <button class="buy-btn"
 onclick="sendOrder()">
-
 Enviar pedido 💬
-
 </button>
-
 </div>
-
 <div class="container"
 id="productos">
-
 </div>
-
 <button id="topBtn"
 onclick="subir()">
-
 ⬆
-
 </button>
-
 <script>
-
 const URL="https://opensheet.elk.sh/1lA5xF3f3DQwYEg9-cFPf6HvMfSBDgNJ5my8VTo7RKnI/Hoja1";
-
 let cart=[];
 let cantidades={};
 let productos=[];
-
 async function cargar(){
-
 let res=await fetch(URL);
-
 productos=await res.json();
-
 mostrar(productos);
-
 }
-
 function mostrar(data){
-
 let cont=document.getElementById("productos");
-
 cont.innerHTML="";
-
 data.forEach((p,i)=>{
-
 if(!p.nombre)return;
-
 cantidades[i]=1;
-
 cont.innerHTML+=`
-
 <div class="card">
-
 <img src="${p.imagen}">
-
 <h4>${p.nombre}</h4>
-
 <div class="price">
 $${p.precio}
 </div>
-
 <div class="qty">
-
 <button class="qty-btn"
 onclick="menos(${i})">
-
 ➖
-
 </button>
-
 <span id="cantidad${i}">
 1
 </span>
-
 <button class="qty-btn"
 onclick="mas(${i})">
-
 ➕
-
 </button>
-
 </div>
-
 <button class="buy-btn"
 onclick="add('${p.nombre}',${p.precio},${i})">
-
 Agregar 🛒
-
 </button>
-
 </div>
-
 `;
-
 });
-
 }
-
 function buscar(){
-
 let texto=document.getElementById("busqueda").value.toLowerCase();
-
 let filtrados=productos.filter(p=>
-
 p.nombre &&
 p.nombre.toLowerCase().includes(texto)
-
 );
-
 mostrar(filtrados);
-
 }
-
 function filtrar(categoria){
-
 if(categoria=="Todos"){
-
 mostrar(productos);
-
 return;
-
 }
-
 let filtrados=productos.filter(p=>
-
 p.categoria &&
 p.categoria.toLowerCase()===categoria.toLowerCase()
-
 );
-
 mostrar(filtrados);
-
 }
-
 function mas(i){
-
 cantidades[i]++;
-
 document.getElementById("cantidad"+i).innerText=cantidades[i];
-
 }
-
 function menos(i){
-
 if(cantidades[i]>1){
-
 cantidades[i]--;
-
 document.getElementById("cantidad"+i).innerText=cantidades[i];
-
 }
-
 }
-
 function add(name,price,i){
-
 cart.push({
-
 name:name,
 price:Number(price),
 cantidad:cantidades[i]
-
 });
-
 render();
-
 }
-
 function remove(i){
-
 cart.splice(i,1);
-
 render();
-
 }
-
 function render(){
-
 let box=document.getElementById("items");
-
 box.innerHTML="";
-
 let total=0;
-
 cart.forEach((p,i)=>{
-
 let subtotal=p.price*p.cantidad;
-
 box.innerHTML+=`
-
 <div class="small">
-
 ${p.cantidad}x ${p.name}
 - $${subtotal}
-
 <button
 class="remove"
 onclick="remove(${i})">
-
 ❌
-
 </button>
-
 </div>
-
 `;
-
 total+=subtotal;
-
 });
-
 box.innerHTML+=`<hr><b>Total: $${total}</b>`;
-
 document.getElementById("cart-title").innerText=
 `🛒 Tu pedido (${cart.length})`;
-
 }
-
 function sendOrder(){
-
 let msg="💖 Hola! Quiero hacer este pedido:%0A%0A";
-
 let total=0;
-
 cart.forEach(p=>{
-
 let subtotal=p.price*p.cantidad;
-
 msg+=`${p.cantidad}x ${p.name} - $${subtotal}%0A`;
-
 total+=subtotal;
-
 });
-
 msg+=`%0A💰 Total: $${total}`;
-
 window.open(
 `https://wa.me/5491135975714?text=${msg}`
 );
-
 }
-
 function subir(){
-
 window.scrollTo({
 top:0,
 behavior:"smooth"
 });
-
 }
-
 window.onscroll=function(){
-
 let btn=document.getElementById("topBtn");
-
 if(document.documentElement.scrollTop>200){
-
 btn.style.display="block";
-
 }else{
-
 btn.style.display="none";
-
 }
-
 }
-
-  function toggleMenu(){
-
-document
-.getElementById("sidebar")
-.classList.toggle("active");
-
-}
-  
 cargar();
-
 </script>
-
 </body>
 </html>
