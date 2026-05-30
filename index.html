@@ -18,7 +18,10 @@ background:#FFEDF4;
 }
 
 /* HEADER */
-
+<button id="menuBtn" onclick="toggleMenu()">
+☰ Categorías
+</button>
+  
 header{
 background:#FF8EB9;
 color:white;
@@ -51,19 +54,16 @@ display:inline-block;
 
 /* BANNER */
 
-.banner{
-margin:15px;
-padding:25px;
-border-radius:20px;
-text-align:center;
-background:linear-gradient(45deg,#ff8eb9,#ffbfd8);
-color:white;
-}
+<div class="banner">
 
-.banner h2{
-margin:0;
-font-size:28px;
-}
+<img src="https://i.imgur.com/TUIMAGEN.jpg">
+
+<div class="banner-text">
+<h2> Pretty Dolls </h2>
+<p>Maquillaje y accesorios para resaltar tu estilo</p>
+</div>
+
+</div>
 
 /* BUSCADOR */
 
@@ -242,7 +242,78 @@ padding:15px;
 .banner h2{
 font-size:22px;
 }
+  
+#menuBtn{
+position:fixed;
+left:15px;
+top:80px;
+z-index:1000;
+background:#ff7fb2;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
+}
 
+.sidebar{
+position:fixed;
+left:-250px;
+top:130px;
+width:220px;
+background:white;
+padding:15px;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.2);
+transition:.3s;
+z-index:1000;
+}
+
+.sidebar.active{
+left:15px;
+}
+
+.sidebar h3{
+margin-top:0;
+text-align:center;
+}
+
+.sidebar button{
+width:100%;
+margin-bottom:8px;
+background:#ff7fb2;
+color:white;
+border:none;
+padding:10px;
+border-radius:15px;
+cursor:pointer;
+}
+
+.banner{
+position:relative;
+padding:0;
+overflow:hidden;
+}
+
+.banner img{
+width:100%;
+height:350px;
+object-fit:cover;
+display:block;
+}
+
+.banner-text{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+color:white;
+text-align:center;
+text-shadow:0 2px 10px rgba(0,0,0,.6);
+width:90%;
+}
+  
 .container{
 grid-template-columns:repeat(2,1fr);
 gap:8px;
@@ -329,7 +400,9 @@ onkeyup="buscar()">
 
 </div>
 
-<div class="categorias">
+<div class="sidebar" id="sidebar">
+
+<h3> Categorías</h3>
 
 <button onclick="filtrar('Todos')">Todos</button>
 <button onclick="filtrar('Maquillaje')">Maquillaje</button>
@@ -615,6 +688,14 @@ btn.style.display="none";
 
 }
 
+  function toggleMenu(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("active");
+
+}
+  
 cargar();
 
 </script>
