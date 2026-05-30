@@ -313,6 +313,17 @@ id="productos">
 onclick="subir()">
 ⬆
 </button>
+<div id="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:9999;overflow:auto;">
+
+<div style="background:white;max-width:600px;margin:40px auto;padding:20px;border-radius:15px;">
+
+<button onclick="cerrarModal()" style="float:right;">✖</button>
+
+<div id="contenidoModal"></div>
+
+</div>
+
+</div>
 <script>
 const URL="https://opensheet.elk.sh/1lA5xF3f3DQwYEg9-cFPf6HvMfSBDgNJ5my8VTo7RKnI/Hoja1";
 let cart=[];
@@ -330,7 +341,7 @@ data.forEach((p,i)=>{
 if(!p.nombre)return;
 cantidades[i]=1;
 cont.innerHTML+=`
-<div class="card">
+<div class="card" onclick="verProducto(${i})" style="cursor:pointer;">
 <img src="${p.imagen}">
 <h4>${p.nombre}</h4>
 <div class="price">
@@ -447,6 +458,44 @@ btn.style.display="block";
 }else{
 btn.style.display="none";
 }
+}
+  function verProducto(i){
+
+let p = productos[i];
+
+document.getElementById("contenidoModal").innerHTML = `
+
+<h2>${p.nombre}</h2>
+
+<img src="${p.imagen}"
+style="width:100%;border-radius:10px;margin-bottom:10px;">
+
+${p.imagen2 ? `
+<img src="${p.imagen2}"
+style="width:100%;border-radius:10px;margin-bottom:10px;">
+` : ""}
+
+${p.imagen3 ? `
+<img src="${p.imagen3}"
+style="width:100%;border-radius:10px;margin-bottom:10px;">
+` : ""}
+
+<p><b>Precio:</b> $${p.precio}</p>
+
+<p><b>Categoría:</b> ${p.categoria || "-"}</p>
+
+<p>${p.descripcion || ""}</p>
+
+`;
+
+document.getElementById("modal").style.display = "block";
+
+}
+
+function cerrarModal(){
+
+document.getElementById("modal").style.display = "none";
+
 }
 cargar();
 </script>
